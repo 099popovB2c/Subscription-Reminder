@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Subscription Reminder",
+  "version": "1.0.0",
+  "description": "Track subscriptions locally and get browser reminders before renewal dates.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "notifications"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Subscription Reminder"
+  },
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "minimum_chrome_version": "111"
+}

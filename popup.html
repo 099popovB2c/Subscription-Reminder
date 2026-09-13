@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Subscription Reminder</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Subscription Reminder</h1>
+        <p>Track renewals before they surprise you.</p>
+      </div>
+      <button id="exportJson" class="ghost">Export</button>
+    </header>
+
+    <section class="summary">
+      <div><strong id="countActive">0</strong><span>Active</span></div>
+      <div><strong id="countSoon">0</strong><span>Due ≤ 7d</span></div>
+      <div><strong id="countOverdue">0</strong><span>Overdue</span></div>
+    </section>
+
+    <section class="totals-card">
+      <div class="section-head">
+        <strong>Estimated recurring cost</strong>
+        <span>by currency</span>
+      </div>
+      <div id="totals" class="totals"></div>
+    </section>
+
+    <section class="form-card">
+      <div class="section-head">
+        <strong id="formTitle">Add subscription</strong>
+        <button id="cancelEdit" class="small-button hidden">Cancel</button>
+      </div>
+
+      <div class="form-grid">
+        <label class="span-2">
+          Name
+          <input id="name" type="text" maxlength="120" placeholder="Netflix">
+        </label>
+
+        <label>
+          Amount
+          <input id="amount" type="number" min="0" step="0.01" placeholder="12.99">
+        </label>
+
+        <label>
+          Currency
+          <select id="currency">
+            <option>EUR</option>
+            <option>USD</option>
+            <option>GBP</option>
+            <option>TRY</option>
+            <option>CHF</option>
+            <option>CAD</option>
+            <option>AUD</option>
+            <option>JPY</option>
+          </select>
+        </label>
+
+        <label>
+          Billing cycle
+          <select id="cadence">
+            <option value="monthly">Monthly</option>
+            <option value="annual">Annual</option>
+            <option value="weekly">Weekly</option>
+            <option value="quarterly">Quarterly</option>
+            <option value="custom">Custom days</option>
+          </select>
+        </label>
+
+        <label id="customDaysWrap" class="hidden">
+          Every N days
+          <input id="customDays" type="number" min="1" max="3650" value="30">
+        </label>
+
+        <label>
+          Next renewal
+          <input id="nextRenewalDate" type="date">
+        </label>
+
+        <label>
+          Remind me
+          <select id="reminderDays">
+            <option value="0">On renewal day</option>
+            <option value="1">1 day before</option>
+            <option value="3" selected>3 days before</option>
+            <option value="7">7 days before</option>
+            <option value="14">14 days before</option>
+            <option value="30">30 days before</option>
+          </select>
+        </label>
+
+        <label class="span-2">
+          Category
+          <input id="category" type="text" maxlength="80" placeholder="Streaming, Software, Cloud…">
+        </label>
+
+        <label class="span-2">
+          Website (optional)
+          <input id="website" type="url" maxlength="500" placeholder="https://example.com/account">
+        </label>
+
+        <label class="span-2">
+          Notes
+          <textarea id="notes" rows="2" maxlength="1000" placeholder="Plan name, cancellation notes…"></textarea>
+        </label>
+      </div>
+
+      <button id="saveSubscription" class="primary full">Add Subscription</button>
+    </section>
+
+    <section class="toolbar">
+      <input id="search" type="search" placeholder="Search subscriptions">
+      <select id="filter">
+        <option value="active">Active</option>
+        <option value="all">All</option>
+        <option value="soon">Due in 7 days</option>
+        <option value="overdue">Overdue</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </section>
+
+    <section class="list-card">
+      <div class="section-head">
+        <strong>Subscriptions</strong>
+        <span id="visibleCount">0</span>
+      </div>
+      <div id="subscriptionList"></div>
+    </section>
+
+    <section class="backup-card">
+      <label class="import-label">
+        Import backup
+        <input id="importJson" type="file" accept="application/json,.json">
+      </label>
+    </section>
+
+    <p id="message">All data stays in your browser.</p>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>
